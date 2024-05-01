@@ -43,6 +43,29 @@ app.get("/empleados",(req,res)=>{
 );
 });
 
+app.put("/update",(req,res)=>{
+    const id = req.body.id;
+    const nombre = req.body.nombre;
+    const edad = req.body.edad;
+    const pais = req.body.pais;
+    const cargo = req.body.cargo;
+    const años = req.body.años;
+
+    db.query("UPDATE empleados SET nombre=?,edad=?,pais=?,cargo=?,años=? WHERE id=?",[nombre,edad,pais,cargo,años,id],
+    (err,result)=>{
+        if(err){
+            console.log(err);
+        } else{
+            res.send(result);
+        }
+    }
+);
+});
+
+app.delete("/delete",(req,res)=>{
+    db.query("DELETE * FROM empleados")
+})
+
 app.listen(3001,()=>{
     console.log("Corriendo en el puerto 3001");
 })

@@ -6,10 +6,13 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 function App() {
 
   const [nombre,setNombre] = useState("");
-  const [edad,setEdad] = useState(0);
+  const [edad,setEdad] = useState();
   const [pais,setPais] = useState("");
   const [cargo,setCargo] = useState("");
-  const [años,setAños] = useState(0);
+  const [años,setAños] = useState();
+  const [id,setId] = useState();
+
+  const [editar,setEditar] = useState(false);
 
   const[empleadosLista,setEmpleados] = useState([]);
 
@@ -22,8 +25,49 @@ function App() {
       años:años
     }).then(()=>{
       getEmpleados();
-      alert("Empleado registrado");
+      limpiarCampos();
     });
+  }
+
+  const borrarDatos = () =>{
+    Axios.delete("https://localhost:3001/delete",{
+      
+    })
+  }
+
+  const limpiarCampos=()=>{
+    setNombre("");
+    setId("");
+    setPais("");
+    setEdad("");
+    setAños("");
+    setCargo("");
+    setEditar(false);
+  }
+
+  const update = ()=>{
+    Axios.put("http://localhost:3001/update",{
+      id:id,
+      nombre:nombre,
+      edad:edad,
+      pais:pais,
+      cargo:cargo,
+      años:años
+    }).then(()=>{
+      getEmpleados();
+      limpiarCampos();
+    });
+  }
+
+  const editarEmpleado = (val)=>{
+    setEditar(true);
+
+    setNombre(val.nombre);
+    setEdad(val.edad);
+    setCargo(val.cargo);
+    setPais(val.pais);
+    setAños(val.años);
+    setId(val.id);
   }
 
   const getEmpleados = ()=>{
@@ -41,27 +85,34 @@ function App() {
         <div className="card-body">
           <div className="input-group mb-3">
             <span className="input-group-text" id="addon-wrapping">Nombre</span>
-            <input id="espaciado" onChange={(event)=>{setNombre(event.target.value);}} type="text" className="form-control" placeholder="Ingrese el nombre" aria-label="Username" aria-describedby="addon-wrapping" required/>
+            <input value={nombre} id="espaciado" onChange={(event)=>{setNombre(event.target.value);}} type="text" className="form-control" placeholder="Ingrese el nombre" aria-label="Username" aria-describedby="addon-wrapping" required/>
           </div>
           <div className="input-group mb-3">
             <span className="input-group-text" id="addon-wrapping">Edad</span>
-            <input onChange={(event)=>{setEdad(event.target.value);}} type="number" className="form-control" placeholder="Ingrese la edad" aria-label="Username" aria-describedby="addon-wrapping" required/>
+            <input value={edad} onChange={(event)=>{setEdad(event.target.value);}} type="number" className="form-control" placeholder="Ingrese la edad" aria-label="Username" aria-describedby="addon-wrapping" required/>
           </div>
           <div className="input-group mb-3">
             <span className="input-group-text" id="addon-wrapping">País</span>
-            <input onChange={(event)=>{setPais(event.target.value);}} type="text" className="form-control" placeholder="Ingrese el país" aria-label="Username" aria-describedby="addon-wrapping" required/>
+            <input value={pais} onChange={(event)=>{setPais(event.target.value);}} type="text" className="form-control" placeholder="Ingrese el país" aria-label="Username" aria-describedby="addon-wrapping" required/>
           </div>
           <div className="input-group mb-3">
             <span className="input-group-text" id="addon-wrapping">Cargo</span>
-            <input onChange={(event)=>{setCargo(event.target.value);}} type="text" className="form-control" placeholder="Ingrese el cargo" aria-label="Username" aria-describedby="addon-wrapping" required/>
+            <input value={cargo} onChange={(event)=>{setCargo(event.target.value);}} type="text" className="form-control" placeholder="Ingrese el cargo" aria-label="Username" aria-describedby="addon-wrapping" required/>
           </div>
           <div className="input-group mb-3">
             <span className="input-group-text" id="addon-wrapping">Años de experiencia</span>
-            <input onChange={(event)=>{setAños(event.target.value);}} type="number" className="form-control" placeholder="Ingrese los años" aria-label="Username" aria-describedby="addon-wrapping" required/>
+            <input value={años} onChange={(event)=>{setAños(event.target.value);}} type="number" className="form-control" placeholder="Ingrese los años" aria-label="Username" aria-describedby="addon-wrapping" required/>
           </div>
         </div>
         <div className="card-footer text-center">
-          <button className="btn btn-success" type='submit' onClick={add}>Registrar</button>
+          {
+            editar?
+            <div>
+            <button className="btn btn-warning m-2" onClick={update}>Actualizar</button>
+            <button className="btn btn-danger m-2" onClick={limpiarCampos}>Cancelar</button>
+            </div>
+            :<button className="btn btn-success" onClick={add}>Registrar</button>
+          }
         </div>
       </div>
       <table className="table table-striped">
@@ -87,6 +138,12 @@ function App() {
                       <td>{val.pais}</td>
                       <td>{val.cargo}</td>
                       <td>{val.años}</td>
+                      <td>
+                        <div className="btn-group" role="group" aria-label="Basic example">
+                          <button onClick={()=>{editarEmpleado(val)}} type="button" className="btn btn-info">Editar</button>
+                          <button type="button" className="btn btn-danger">Eliminar</button>
+                        </div>
+                      </td>
                     </tr>
           })
         }
