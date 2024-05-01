@@ -32,18 +32,10 @@ function App() {
     });
   }
 
+  getEmpleados();
+
   return (
     <div className='container'>
-    <div className="App">
-      <div className='lista'>
-        <button className="btn btn-primary" onClick={getEmpleados}>Listar</button>
-        {
-          empleadosLista.map((val,key)=>{
-            return <div className=''>{val.nombre}</div>
-          })
-        }
-      </div>
-
       <div className="card text-bg-light mb-3">
         <div className="card-header"><h5 className="card-title text-center">GESTIÓN DE EMPLEADOS</h5></div>
         <div className="card-body">
@@ -72,7 +64,35 @@ function App() {
           <button className="btn btn-success" type='submit' onClick={add}>Registrar</button>
         </div>
       </div>
-    </div>
+      <table className="table table-striped">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Nombre</th>
+          <th scope="col">Edad</th>
+          <th scope="col">País</th>
+          <th scope="col">Cargo</th>
+          <th scope="col">Experiencia</th>
+          <th scope="col">Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+
+        {
+          empleadosLista.map((val,key)=>{
+            return <tr key={val.id}>
+                      <th>{val.id}</th>
+                      <td>{val.nombre}</td>
+                      <td>{val.edad}</td>
+                      <td>{val.pais}</td>
+                      <td>{val.cargo}</td>
+                      <td>{val.años}</td>
+                    </tr>
+          })
+        }
+
+      </tbody>
+      </table>
     </div>
   );
 }
