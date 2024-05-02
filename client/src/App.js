@@ -2,6 +2,7 @@ import './App.css';
 import{useState} from "react";
 import Axios from "axios";
 import 'bootstrap/dist/css/bootstrap.min.css';
+import Swal from 'sweetalert2'
 
 function App() {
 
@@ -26,13 +27,13 @@ function App() {
     }).then(()=>{
       getEmpleados();
       limpiarCampos();
+      Swal.fire({
+        title: "<strong>¡Registro exitoso!</strong>",
+        html: "<i>El empleado <strong>" +nombre+ "</strong> fue registrado con éxito </i>",
+        icon: 'success',
+        timer: 1000
+      })
     });
-  }
-
-  const borrarDatos = () =>{
-    Axios.delete("https://localhost:3001/delete",{
-      
-    })
   }
 
   const limpiarCampos=()=>{
@@ -56,7 +57,40 @@ function App() {
     }).then(()=>{
       getEmpleados();
       limpiarCampos();
+      Swal.fire({
+        title: "<strong>¡Actualización exitosa!</strong>",
+        html: "<i>El empleado <strong>" +nombre+ "</strong> fue actualizado con éxito </i>",
+        icon: 'success',
+        timer: 3000
+      })
     });
+  }
+
+  const borrarDatos = (val)=>{
+
+    Swal.fire({
+      title: "Confirmar eliminación",
+      html: "<i>¿Realmente desea eliminar a <strong>" +val.nombre+ "</strong>?</i>",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Si, eliminar"
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Axios.delete(`http://localhost:3001/delete/${val.id}`,).then(()=>{
+          getEmpleados();
+          limpiarCampos();
+          Swal.fire(
+            "Eliminado",
+            val.nombre + " Fue eliminado",
+            "success"
+          );
+        });
+      }
+    });
+
+    
   }
 
   const editarEmpleado = (val)=>{
@@ -80,7 +114,7 @@ function App() {
 
   return (
     <div className='container'>
-      <div className="card text-bg-light mb-3">
+      <div className="card text-bg-light mb-3 mt-3">
         <div className="card-header"><h5 className="card-title text-center">GESTIÓN DE EMPLEADOS</h5></div>
         <div className="card-body">
           <div className="input-group mb-3">
@@ -141,7 +175,7 @@ function App() {
                       <td>
                         <div className="btn-group" role="group" aria-label="Basic example">
                           <button onClick={()=>{editarEmpleado(val)}} type="button" className="btn btn-info">Editar</button>
-                          <button type="button" className="btn btn-danger">Eliminar</button>
+                          <button type="button" onClick={()=>{borrarDatos(val);}} className="btn btn-danger">Eliminar</button>
                         </div>
                       </td>
                     </tr>
