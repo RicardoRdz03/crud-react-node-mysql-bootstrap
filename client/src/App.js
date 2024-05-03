@@ -81,11 +81,19 @@ function App() {
         Axios.delete(`http://localhost:3001/delete/${val.id}`,).then(()=>{
           getEmpleados();
           limpiarCampos();
-          Swal.fire(
-            "Eliminado",
-            val.nombre + " Fue eliminado",
-            "success"
-          );
+          Swal.fire({
+            icon:'success',
+            title: val.nombre+ 'fue eliminado.',
+            showConfirmButton: false,
+            timer: 2000
+        });
+        }).catch(function(error){
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'No se logró eliminar el empleado',
+            footer: error
+          })
         });
       }
     });
