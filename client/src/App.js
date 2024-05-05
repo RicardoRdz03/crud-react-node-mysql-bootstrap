@@ -31,7 +31,14 @@ function App() {
         title: "<strong>¡Registro exitoso!</strong>",
         html: "<i>El empleado <strong>" +nombre+ "</strong> fue registrado con éxito </i>",
         icon: 'success',
-        timer: 1000
+        timer: 3000
+      })
+    }).catch(function(error){
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'No se logró registrar el empleado',
+        footer: JSON.parse(JSON.stringify(error)).message==="Network Error"?"Intente más tarde":JSON.parse(JSON.stringify(error)).message
       })
     });
   }
@@ -63,6 +70,13 @@ function App() {
         icon: 'success',
         timer: 3000
       })
+    }).catch(function(error){
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'No se logró actualizar los datos el empleado',
+        footer: JSON.parse(JSON.stringify(error)).message==="Network Error"?"Intente más tarde":JSON.parse(JSON.stringify(error)).message
+      })
     });
   }
 
@@ -83,7 +97,7 @@ function App() {
           limpiarCampos();
           Swal.fire({
             icon:'success',
-            title: val.nombre+ 'fue eliminado.',
+            title: val.nombre+ ' fue eliminado.',
             showConfirmButton: false,
             timer: 2000
         });
@@ -92,7 +106,7 @@ function App() {
             icon: 'error',
             title: 'Oops...',
             text: 'No se logró eliminar el empleado',
-            footer: error
+            footer: JSON.parse(JSON.stringify(error)).message==="Network Error"?"Intente más tarde":JSON.parse(JSON.stringify(error)).message
           })
         });
       }
