@@ -18,7 +18,7 @@ function App() {
   const[empleadosLista,setEmpleados] = useState([]);
 
   const add = ()=>{
-    Axios.post("http://localhost:3001/create",{
+    Axios.post("https://crud-react-node-mysql-bootstrap.onrender.com/create",{
       nombre:nombre,
       edad:edad,
       pais:pais,
@@ -54,7 +54,7 @@ function App() {
   }
 
   const update = ()=>{
-    Axios.put("http://localhost:3001/update",{
+    Axios.put("https://crud-react-node-mysql-bootstrap.onrender.com/update",{
       id:id,
       nombre:nombre,
       edad:edad,
@@ -92,7 +92,7 @@ function App() {
       confirmButtonText: "Si, eliminar"
     }).then((result) => {
       if (result.isConfirmed) {
-        Axios.delete(`http://localhost:3001/delete/${val.id}`,).then(()=>{
+        Axios.delete(`https://crud-react-node-mysql-bootstrap.onrender.com/delete/${val.id}`,).then(()=>{
           getEmpleados();
           limpiarCampos();
           Swal.fire({
@@ -127,7 +127,7 @@ function App() {
   }
 
   const getEmpleados = ()=>{
-    Axios.get("http://localhost:3001/empleados").then((response)=>{
+    Axios.get("https://crud-react-node-mysql-bootstrap.onrender.com/empleados").then((response)=>{
       setEmpleados(response.data);
     });
   }
