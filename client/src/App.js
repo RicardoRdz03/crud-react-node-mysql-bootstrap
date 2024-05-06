@@ -132,8 +132,6 @@ function App() {
     });
   }
 
-  getEmpleados();
-
   return (
     <div className='container'>
       <div className="card text-bg-light mb-3 mt-3">
@@ -169,6 +167,7 @@ function App() {
             </div>
             :<button className="btn btn-success" onClick={add}>Registrar</button>
           }
+          <button className='btn btn-warning m-2' onClick={getEmpleados}>Listar empleados</button>
         </div>
       </div>
       <table className="table table-striped">
