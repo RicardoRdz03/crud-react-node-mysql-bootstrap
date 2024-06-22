@@ -1,12 +1,13 @@
-Proyecto CRUD con Node.js, React y MySQL
+# Proyecto CRUD con Node.js, React y MySQL
+
 Este proyecto es una página web desarrollada con Node.js que establece una conexión con una base de datos MySQL. Permite mostrar en pantalla los datos, así como agregar, eliminar y modificar registros.
 
-Herramientas Utilizadas
-HTML
-React
-Node.js
-MySQL
-Bootstrap
+## Herramientas Utilizadas
+- **HTML**
+- **React**
+- **Node.js**
+- **MySQL**
+- **Bootstrap**
 
 
 
