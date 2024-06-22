@@ -1,11 +1,12 @@
-Página web realizada con Node.js estableciendo conexión con una base de datos, muestra en pantalla los datos, puede agregar, eliminar y modificar.
+Proyecto CRUD con Node.js, React y MySQL
+Este proyecto es una página web desarrollada con Node.js que establece una conexión con una base de datos MySQL. Permite mostrar en pantalla los datos, así como agregar, eliminar y modificar registros.
 
-                                                                          HERRAMIENTAS UTILIZADAS:
-                                                                                  - HTML
-- React
-- Node.js
-- MySQL
-- Bootstrap
+Herramientas Utilizadas
+HTML
+React
+Node.js
+MySQL
+Bootstrap
 
 
 
