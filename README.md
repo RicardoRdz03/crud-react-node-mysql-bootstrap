@@ -1,7 +1,7 @@
 Página web realizada con Node.js estableciendo conexión con una base de datos, muestra en pantalla los datos, puede agregar, eliminar y modificar.
 
-HERRAMIENTAS UTILIZADAS:
-- HTML
+                                                                          HERRAMIENTAS UTILIZADAS:
+                                                                                  - HTML
 - React
 - Node.js
 - MySQL
